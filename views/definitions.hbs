@@ -1,0 +1,82 @@
+<!--
+Sources used:
+
+Handlebars page structure based on example from nodejs-starter-app repo steps 3 & 5,
+retrieved 2/27/24 from https://github.com/osu-cs340-ecampus/nodejs-starter-app/.
+
+Form structure based on example from MDN Web Docs: Your first form,
+retrieved 2/14/24 from https://developer.mozilla.org/en-US/docs/Learn/Forms/Your_first_form.
+
+Required attribute for input forms from w3schools 
+retrieved 3/6/24 from https://www.w3schools.com/tags/att_input_required.asp.
+
+Code for "Hide/show form" functionality adapted from ssc-hrep3 on Stack Overflow, 
+retrieved 3/13/24 from https://stackoverflow.com/questions/35607209/i-need-a-form-to-appear-when-i-click-on-a-button.
+
+"Required" asterisk HTML based on example from MDN Web Docs: ":required", accessed 3/13/24 from
+https://developer.mozilla.org/en-US/docs/Web/CSS/:required.
+-->
+
+<h1>Definitions</h1>
+<p>Browse and add definitions for vocabulary items.</p>
+
+<section>
+    <a href="#add-definition-section"><button onclick="showForm('add-definition-section')">Add a definition</button></a>
+
+</section>
+
+<!--Table for Definitions-->
+<section>
+    <table>
+        <caption>Definitions for vocabulary items</caption>
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{this.definitionID}}</td>
+                <td>{{this.vocabTerm}}</td>
+                <td>{{this.definition}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>
+
+<!--Form to add a definition-->
+<section id="add-definition-section" style="display: none">
+    <form id="add-definition-form" method="POST" action="/add-definition-form">
+        <button class="hideform" onclick="hideForm('add-definition-section')">Hide form</button>
+        
+        <h2>Add a definition</h2>
+        <p>Select a vocab term and add the definition.</p>
+        <p><span class="req">*</span> - Required field</p>
+        <ul>
+            <li>
+                <label for="input-vocabterm">Vocab term: <span class="req">*</span></label>
+                <select name="input-vocabterm" id="input-vocabterm" required>
+                    <option value="">Select a vocab term</option>
+                    {{#each vocabterms}}
+                    <option value="{{this.vocabTermID}}">{{this.vocabTerm}}</option>
+                    {{/each}}
+                </select>
+            </li>
+            <li>
+
+                <label for="input-definition">Definition: <span class="req">*</span></label>
+                <textarea name="input-definition" id="input-definition" required></textarea>
+            </li>
+            <li>
+                <button type="submit">Add definition</button>
+            </li>
+        </ul>
+    </form>
+</section>

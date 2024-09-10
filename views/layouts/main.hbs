@@ -1,0 +1,54 @@
+<!--
+Handlebars page structure based on example from nodejs-starter-app repo, Step 3,
+retrieved 2/27/24 from https://github.com/osu-cs340-ecampus/nodejs-starter-app/
+
+Code for "Hide/show form" functionality adapted from ssc-hrep3 on Stack Overflow, 
+retrieved 3/13/24 from https://stackoverflow.com/questions/35607209/i-need-a-form-to-appear-when-i-click-on-a-button.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>WordCards Database</title>
+        <link href="style.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <header>
+            <h1>WordCards Spanish Database</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/learners">Learners</a></li>
+                    <li><a href="/practicelists">Practice Lists</a></li>
+                    <li><a href="/vocabterms">Vocab Terms</a></li>
+                    <li><a href="/definitions">Definitions</a></li>
+                    <li><a href="/sentences">Example Sentences</a></li>
+                </ul>
+                </nav>
+        </header>
+
+        <main>
+            {{{body}}} <!--Page body goes here; don't move this-->
+
+            <!--JavaScript function to show forms (based on StackOverflow answer—see citation above)-->
+            <script type="text/javascript">
+            function showForm(section) {
+                document.getElementById(section).style.display = 'block';
+            }
+            </script>
+
+            <!--JavaScript function to hide forms (based on StackOverflow answer—see citation above)-->
+            <script type="text/javascript">
+            function hideForm(section) {
+                document.getElementById(section).style.display = 'none';
+            }
+            </script>
+
+        </main>
+
+        <footer>
+        <p>&#169; Sycamore Dennis & Syme Shahidi</p>
+        </footer>
+    </body>
+</html>

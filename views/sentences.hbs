@@ -1,0 +1,80 @@
+<!--
+Sources used:
+
+Handlebars page structure based on example from nodejs-starter-app repo steps 3 & 5,
+retrieved 2/27/24 from https://github.com/osu-cs340-ecampus/nodejs-starter-app/.
+
+Form structure based on example from MDN Web Docs: Your first form,
+retrieved 2/14/24 from https://developer.mozilla.org/en-US/docs/Learn/Forms/Your_first_form.
+
+Required attribute for input forms from w3schools 
+retrieved 3/6/24 from https://www.w3schools.com/tags/att_input_required.asp.
+
+Code for "Hide/show form" functionality adapted from ssc-hrep3 on Stack Overflow, 
+retrieved 3/13/24 from https://stackoverflow.com/questions/35607209/i-need-a-form-to-appear-when-i-click-on-a-button.
+
+"Required" asterisk HTML based on example from MDN Web Docs: ":required", accessed 3/13/24 from
+https://developer.mozilla.org/en-US/docs/Web/CSS/:required.
+-->
+
+<h1>Example Sentences</h1>
+<p>Browse and add example sentences for vocabulary items by definition.</p>
+
+<section>
+    <a href="#add-sentence-section"><button onclick="showForm('add-sentence-section')">Add an example sentence</button></a>
+</section>
+
+<!--Table for ExampleSentences-->
+<section>
+    <table>
+        <caption>Example sentences for vocabulary items by definition.</caption>
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{this.exampleSentenceID}}</td>
+                <td>{{this.definition}}</td>
+                <td>{{this.exampleSentence}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>
+
+<!--Form to add an example sentence-->
+<section id="add-sentence-section" style="display: none">
+    <form id="add-sentence-form" method="POST" action="/add-sentence-form">
+        <button class="hideform" onclick="hideForm('add-sentence-section')">Hide form</button>
+        
+        <h2>Add an example sentence</h2>
+        <p>Select the associated vocab term & definition and create a sentence.</p>
+        <p><span class="req">*</span> - Required field</p>
+        <ul>
+            <li>
+                <label for="input-definitions">Term: <span class="req">*</span></label>
+                <select name="input-definitions" id="input-definitions" required>
+                    <option value="">[Term: Definition]</option>
+                    {{#each definitions}}
+                    <option value="{{this.definitionID}}">{{this.vocabTerm}}: {{this.definition}}</option>
+                    {{/each}}
+                </select>
+            </li>
+            <li>
+                <label for="input-sentence">Sentence: <span class="req">*</span></label>
+                <textarea name="input-sentence" id="input-sentence" required></textarea>
+            </li>
+            <li>
+                <button type="submit">Add example sentence</button>
+            </li>
+        </ul>
+    </form>
+</section>

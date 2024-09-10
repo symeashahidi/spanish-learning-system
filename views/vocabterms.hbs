@@ -1,0 +1,80 @@
+<!--
+Sources used:
+
+Handlebars page structure based on example from nodejs-starter-app repo steps 3 & 5,
+retrieved 2/27/24 from https://github.com/osu-cs340-ecampus/nodejs-starter-app/.
+
+Form structure based on example from MDN Web Docs: Your first form,
+retrieved 2/14/24 from https://developer.mozilla.org/en-US/docs/Learn/Forms/Your_first_form.
+
+Required attribute for input forms from w3schools 
+retrieved 3/6/24 from https://www.w3schools.com/tags/att_input_required.asp.
+
+Code for "Hide/show form" functionality adapted from ssc-hrep3 on Stack Overflow, 
+retrieved 3/13/24 from https://stackoverflow.com/questions/35607209/i-need-a-form-to-appear-when-i-click-on-a-button.
+
+"Required" asterisk HTML based on example from MDN Web Docs: ":required", accessed 3/13/24 from
+https://developer.mozilla.org/en-US/docs/Web/CSS/:required.
+-->
+
+<h1>Vocabulary Items</h1>
+<p>Browse and add vocabulary items.</p>
+
+<section>
+    <a href="#add-term-section"><button onclick="showForm('add-term-section')">Add a vocab term</button></a>
+</section>
+
+<!--Table for VocabTerms-->
+<section>
+    <table>
+        <caption>Vocabulary terms and their attributes</caption>
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{this.vocabTermID}}</td>
+                <td>{{this.vocabTerm}}</td>
+                <td>{{this.partOfSpeech}}</td>
+                <td>{{this.gender}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>
+
+<!--Form to add a vocab term-->
+<section id="add-term-section" style="display: none">
+    <form id="add-vocabterm-form" method="POST" action="/add-vocabterm-form">
+        <button class="hideform" onclick="hideForm('add-term-section')">Hide form</button>
+        
+        <h2>Add a vocab term</h2>
+        <p>Enter a vocab term, its part of speech, and (if applicable) the grammatical gender.</p>
+        <p><span class="req">*</span> - Required field</p>
+        <ul>
+            <li>
+                <label for="input-vocabterm">Vocab term: <span class="req">*</span></label>
+                <input type="text" name="input-vocabterm" id="input-vocabterm" required>
+            </li>
+            <li>
+                <label for="input-partofspeech">Part of speech: <span class="req">*</span></label>
+                <input type="text" name="input-partofspeech" id="input-partofspeech" required>
+            </li>
+            <li>
+                <label for="input-gender">Gender: </label>
+                <input type="text" name="input-gender" id="input-gender">
+            </li>
+            <li>
+                <button type="submit">Add vocab term</button>
+            </li>
+        </ul>
+    </form>
+</section>

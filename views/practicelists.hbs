@@ -1,0 +1,202 @@
+<!--
+Sources used:
+
+Handlebars page structure based on example from nodejs-starter-app repo steps 3, 5, 6 & 7,
+retrieved 2/27/24 from https://github.com/osu-cs340-ecampus/nodejs-starter-app/.
+
+Form structure based on example from MDN Web Docs: Your first form,
+retrieved 2/14/24 from https://developer.mozilla.org/en-US/docs/Learn/Forms/Your_first_form.
+
+Required attribute for input forms from w3schools 
+retrieved 3/6/24 from https://www.w3schools.com/tags/att_input_required.asp.
+
+Code for "Hide/show form" functionality adapted from ssc-hrep3 on Stack Overflow, 
+retrieved 3/13/24 from https://stackoverflow.com/questions/35607209/i-need-a-form-to-appear-when-i-click-on-a-button.
+
+"Required" asterisk HTML based on example from MDN Web Docs: ":required", accessed 3/13/24 from
+https://developer.mozilla.org/en-US/docs/Web/CSS/:required.
+-->
+
+<h1>Practice Lists</h1>
+<p>Browse, add, update, and remove practice lists and their contents.</p>
+
+<section>
+    <!--Buttons to forms-->
+    <a href="#add-list-section"><button onclick="showForm('add-list-section')">Create a practice list</button></a> <a href="#add-term-section"><button onclick="showForm('add-term-section')">Add a term to a list</button></a> <a href="#update-list-section"><button onclick="showForm('update-list-section')">Update list name</button></a> <a href="#anon-list-section"><button onclick="showForm('anon-list-section')">Anonymize a list</button></a>
+
+</section>
+
+<!--Main table-->
+<section>
+    <table id="practicelist-table">
+        <caption>Practice list details</caption>
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each data}}
+            <tr data-value={{this.practiceListID}}>
+                <td>{{this.practiceListID}}</td>
+                <td>{{this.username}}</td>
+                <td>{{this.listName}}</td>
+                <td>{{this.listLength}}</td>
+                <td><button onclick="deletePracticeList({{this.practiceListID}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <script src="/js/delete_practicelist.js"></script>
+</section>
+
+<!--Intersection table-->
+<section>
+    <table id="listhasterms-table">
+        <caption>Practice list contents</caption>
+        <thead>
+            <tr>
+                {{#each contentsdata.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each contentsdata}}
+            <tr data-value={{this.listHasTermsID}}>
+                <td>{{this.listHasTermsID}}</td>
+                <td>{{this.listName}}</td>
+                <td>{{this.vocabTerm}}</td>
+                <td><button onclick="deleteListContents({{this.listHasTermsID}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <script src="/js/delete_listcontents.js"></script>
+</section>
+
+<!--Add practice list form-->
+<section id="add-list-section" style="display: none">
+    <form id="add-practicelist-form" method="POST" action="/add-practicelist-form">
+        <button class="hideform" onclick="hideForm('add-list-section')">Hide form</button>
+        <h2>Add a practice list</h2>
+        <p>Select the associated user and create a name for the practice list.</p>
+        <p><span class="req">*</span> - Required field</p>
+        <ul>
+            <li>
+                <label for="input-learner">Learner:</label>
+                <select name="input-learner" id="input-learner">
+                    <option value="">Select a learner</option>
+                    {{#each learners}}
+                    <option value="{{this.learnerID}}">{{this.username}}</option>
+                    {{/each}}
+                </select>
+            </li>
+
+            <li>
+                <label for="input-listname">List name: <span class="req">*</span></label>
+                <input type="text" name="input-listname" id="input-listname" required>
+            </li>
+            <li>
+                <button type="submit">Add practice list</button>
+            </li>
+        </ul>
+    </form>
+</section>
+
+<!--Add item to list form-->
+<section id="add-term-section" style="display: none">
+    <form id="add-listcontents-form" method="POST" action="/add-listcontents-form">
+        <button class="hideform" onclick="hideForm('add-term-section')">Hide form</button>
+        <h2>Add an item to a list</h2>
+        <p>Select a practice list and a vocab term to add to it. A practice list cannot contain duplicate words.</p>
+        <p><span class="req">*</span> - Required field</p>
+        <ul>
+            <li>
+                <label for="input-practicelist">List: <span class="req">*</span></label>
+                <select name="input-practicelist" id="input-practicelist" required>
+                    <option value="">Select a list</option>
+                    {{#each practicelists}}
+                    <option value="{{this.practiceListID}}">{{this.listName}}</option>
+                    {{/each}}
+                </select>
+            </li>
+            <li>
+                <label for="input-vocabterms">Vocab term: <span class="req">*</span></label>
+                <select name="input-vocabterm" id="input-vocabterm" required>
+                    <option value="">Select a term</option>
+                    {{#each vocabterms}}
+                    <option value="{{this.vocabTermID}}">{{this.vocabTerm}}</option>
+                    {{/each}}
+                </select>
+            </li>
+            <li>
+                <button type="submit">Add term to list</button>
+            </li>
+        </ul>
+    </form>
+</section>
+
+<!--Update practice list name form-->
+<section id="update-list-section" style="display: none">
+    <form id="update-practicelist-form" method="POST" action="/update-practicelist-form">
+        <button class="hideform" onclick="hideForm('update-list-section')">Hide form</button>
+        <h2>Update list name</h2>
+        <p>Select a practice list and enter a new name.</p>
+        <p><span class="req">*</span> - Required field</p>
+        <ul>
+            <li>
+                <label for="input-practicelist">List: <span class="req">*</span></label>
+                <select name="input-practicelist" id="input-practicelist" required>
+                    <option value="">Select a list</option>
+                    {{#each practicelists}}
+                    <option value="{{this.practiceListID}}">{{this.listName}}</option>
+                    {{/each}}
+                </select>
+            </li>
+            <li>
+                <label for="input-updated-listname">New name: <span class="req">*</span></label>
+                <input type="text" name="input-updated-listname" id="input-updated-listname" required>
+            </li>
+            <li>
+                <button type="submit">Update list</button>
+            </li>
+        </ul>
+    </form>
+</section>
+
+<!--Anonymize list-->
+<section id="anon-list-section" style="display: none">
+    <form id="anonymize-practicelist-form" method="POST" action="/anonymize-practicelist-form">
+        <button class="hideform" onclick="hideForm('anon-list-section')">Hide form</button>
+
+        <h2>Anonymize a practice list</h2>
+        <p>Select a practice list to anonymize. <span class="warning">Warning: this will remove the list's association with its learner.</span></p>
+        <p><span class="req">*</span> - Required field</p>
+        <ul>
+            <li>
+                <label for="input-anon-practicelist">List: <span class="req">*</span></label>
+                <select name="input-anon-practicelist" id="input-anon-practicelist" required>
+                    <option value="">Select a list</option>
+                    {{#each authoredlists}}
+                    <option value="{{this.practiceListID}}">{{this.listName}}</option>
+                    {{/each}}
+                </select>
+            </li>
+            <li>
+                <button type="submit">Anonymize list</button>
+            </li>
+        </ul>
+    </form>
+<section>
+

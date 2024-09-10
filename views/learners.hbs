@@ -1,0 +1,75 @@
+<!--
+Sources used:
+
+Handlebars page structure based on example from nodejs-starter-app repo steps 3 & 5,
+retrieved 2/27/24 from https://github.com/osu-cs340-ecampus/nodejs-starter-app/.
+
+Form structure based on example from MDN Web Docs: Your first form,
+retrieved 2/14/24 from https://developer.mozilla.org/en-US/docs/Learn/Forms/Your_first_form.
+
+Required attribute for input forms from w3schools 
+retrieved 3/6/24 from https://www.w3schools.com/tags/att_input_required.asp.
+
+Code for "Hide/show form" functionality adapted from ssc-hrep3 on Stack Overflow, 
+retrieved 3/13/24 from https://stackoverflow.com/questions/35607209/i-need-a-form-to-appear-when-i-click-on-a-button.
+
+"Required" asterisk HTML based on example from MDN Web Docs: ":required", accessed 3/13/24 from
+https://developer.mozilla.org/en-US/docs/Web/CSS/:required.
+-->
+
+<h1>Learners</h1>
+<p>Browse and add learners.</p>
+
+<section>
+    <a href="#add-learner-section"><button onclick="showForm('add-learner-section')">Add a learner</button></a>
+</section>
+
+<!--Table for Learners-->
+<section>
+    <table>
+        <caption>Learners and their account details</caption>
+        <thead>
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each data}}
+            <tr>
+                <td>{{this.learnerID}}</td>
+                <td>{{this.username}}</td>
+                <td>{{this.email}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>
+
+<!--Form to add a Learner-->
+<section id="add-learner-section" style="display: none">
+    <form id="add-learner-form" method="POST" action="/add-learner-form">
+        <button class="hideform" onclick="hideForm('add-learner-section')">Hide form</button>
+        
+        <h2>Add a learner</h2>
+        <p>Enter a username and email address for the new learner.</p>
+        <p><span class="req">*</span> - Required field</p>
+        <ul>
+            <li>
+                <label for="input-username">Username: <span class="req">*</span></label>
+                <input type="text" name="input-username" id="input-username" required>
+            </li>
+            <li>
+                <label for="input-email">Email: <span class="req">*</span></label>
+                <input type="email" name="input-email" id="input-email" required>
+            </li>
+            <li>
+                <button type="submit">Add learner</button>
+            </li>
+        </ul>
+    </form>
+</section>

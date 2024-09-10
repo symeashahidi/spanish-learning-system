@@ -1,0 +1,214 @@
+/* 
+Sources:
+
+Some form rules copied with modification from MDN Web Docs: Your first form, accessed 2/14/24 from
+https://developer.mozilla.org/en-US/docs/Learn/Forms/Your_first_form.
+
+Styling for required form attributes is based on example
+from MDN Web Docs: ":required", accessed 3/13/24 from
+https://developer.mozilla.org/en-US/docs/Web/CSS/:required
+
+Other style rules are original.
+
+Typefaces used: 
+
+"Outfit" by Smartsheet Inc, Rodrigo Fuenzalida, retrieved 3/13/24 from https://fonts.google.com/specimen/Outfit?query=outfit.
+
+"Source Sans 3" by Paul D. Hunt, retrieved 3/13/24 from https://fonts.google.com/specimen/Source+Sans+3?query=source+sans+3. 
+*/
+
+/* ------------ Imports ------------ */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+/* ------ Variables -------- */
+:root {
+    font-family: "Source Sans 3", Arial, sans-serif;
+    --dark: #000000;
+    --medium: #828282;
+    --light: #FFFFFF;
+    --lightBlue: #7cb1ed;
+    --mediumBlue: #4c8cd6;
+    --darkBlue: #1e5088;
+    --delete: #FE4A49;
+    --deleteDark: #c82b2b;
+}
+
+/* ------- Document blocks ------- */
+
+h1 {
+    font-family: "Outfit", Arial, sans-serif;
+}
+
+main {
+    margin: 2em 4em 2em 4em;
+}
+
+section {
+    margin-bottom: 3em;
+}
+
+footer {
+    width: 100%;
+    /* stick it to the bottom */
+    position: relative;
+    bottom: 0px;
+}
+
+.citation {
+    margin-top: 2em;
+    font-size: .8em;
+}
+
+button {
+    padding: 6px;
+    color: var(--light);
+    background-color: var(--mediumBlue);
+    border: solid 1px var(--mediumBlue);
+    border-radius: 6px;
+}
+
+button:hover {
+    background-color: var(--darkBlue);
+    border-color: var(--darkBlue);
+}
+
+/* --------- Nav bar rules ------- */
+
+nav {
+    background-color: var(--mediumBlue);
+}
+
+nav ul {
+    /* make nav links horizontal */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    /* remove list style */
+    list-style-type: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--light);
+    font-weight: 500;
+}
+
+nav li {
+    padding: 10px;
+}
+
+nav li:hover {
+    background-color: var(--darkBlue);
+    color: var(--light);
+}
+
+/* -------- Table rules --------- */
+
+table, th, td {
+    border: solid 1px var(--dark);
+}
+
+table {
+    width: 90%;
+    border-collapse: collapse;
+}
+
+th {
+    color: var(--light);
+    background-color: var(--mediumBlue);
+}
+
+th, td {
+    padding: 10px;
+}
+
+caption {
+    margin-bottom: 10px;
+    color: var(--mediumBlue);
+}
+
+table button {
+    color: var(--delete);
+    background-color: var(--light);
+    border: solid 1px var(--delete);
+    border-radius: 4px;
+}
+
+table button:hover {
+    color: var(--light);
+    background-color: var(--deleteDark);
+    border: solid 1px var(--deleteDark);
+}
+
+/* -------- Form rules --------- */
+
+form {
+    width: 400px;
+    /* Form outline */
+    padding: 1em;
+    border: 1px solid var(--dark);
+    border-radius: 1em;
+}
+
+form h2 {
+    color: var(--dark);
+}
+
+form ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+form li {
+    margin-bottom: 1em;
+}
+
+label {
+    /* Uniform size & alignment */
+    display: inline-block;
+    width: 90px;
+    text-align: right;
+}
+
+input,
+textarea {
+  /* Uniform text field size */
+  width: 300px;
+  box-sizing: border-box;
+
+  /* Match form field borders */
+  border: 1px solid var(--medium);
+}
+
+textarea {
+    /* Align multiline text fields with their labels */
+    vertical-align: top;
+    /* Provide space to type some text */
+    height: 5em;
+}
+
+form button {
+    /* This extra margin represent roughly the same space as the space
+       between the labels and their text fields */
+       margin-left: 7em;
+}
+
+.hideform {
+    color: var(--mediumBlue);
+    background-color: var(--light);
+    margin-left: 0em;
+    float: right;
+    border: solid 1px var(--mediumBlue);
+}
+
+.hideform:hover {
+    color: var(--light);
+    background-color: var(--mediumBlue);
+    border-color: var(--mediumBlue);
+}
+
+.req, .warning {
+    color: var(--delete);
+}
