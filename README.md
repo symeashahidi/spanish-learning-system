@@ -6,14 +6,17 @@ A web application with a MySQL database backend, designed to manage data for a S
 
 <img width="1465" alt="Screenshot 2024-09-10 at 10 32 13 AM" src="https://github.com/user-attachments/assets/8fedcf33-c2f6-49e9-bd11-956ce2c5359d">
 
-Example table and add form: 
+Example table:
 
-<img width="907" alt="Screenshot 2024-09-10 at 10 38 47 AM" src="https://github.com/user-attachments/assets/06020f04-0b1b-473b-905c-4b55ebcdb753">
+<img width="813" alt="Screenshot 2024-09-10 at 10 43 00 AM" src="https://github.com/user-attachments/assets/79a609f1-24b0-43d8-9d79-e798a6ac6860">
 
-<img width="595" alt="Screenshot 2024-09-10 at 10 38 51 AM" src="https://github.com/user-attachments/assets/64ac516f-4ed2-43fa-b4d1-084577733f6b">
+Add form:
 
+<img width="520" alt="Screenshot 2024-09-10 at 10 43 21 AM" src="https://github.com/user-attachments/assets/af68368a-5fbe-4c5c-af6f-4c9859026742">
 
+Update form:
 
+<img width="534" alt="Screenshot 2024-09-10 at 10 43 39 AM" src="https://github.com/user-attachments/assets/d1f780cc-4a14-4b58-a029-17bfc0b2f901">
 
 
 # Entity-Relationship diagram
